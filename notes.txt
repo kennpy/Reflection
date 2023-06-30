@@ -1,0 +1,27 @@
+TODO
+
+[  ]  Embed an audio file with play button
+    [  ]  Make it play when you click it   
+
+[  ]  Add text of what it says onto the screen 
+[  ]  Add text box below it
+[  ]  Add submit button
+
+Ideas
+
+Frontend --> React so we can make a
+ reflection component -- reflection box, audio file, prompt, submit button
+ sidebard -- cache of past reflections
+
+backend -- express.js , mongoose, passport (normal & google authentication)
+
+database - mongodb
+
+USER - id, username, password (hashed)
+REFLECTION TEMPLATE - fileName (link to file name on server)
+
+server -- aws ?? idk yet (figure this out later)
+
+deployment -- idk ?? maybe goes with server
+
+things to try -- next.js (server side rendering --> faster + cooler)
