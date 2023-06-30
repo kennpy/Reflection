@@ -9,6 +9,11 @@ TODO
 
 Ideas
 
+Embeded music videos paired with music and reflection templates
+    - use royalty free music + background to start. Once concept is proven we can reach out to get legitemate pairs (music that is actually good)
+
+let the music play out 
+
 Frontend --> React so we can make a
  reflection component -- reflection box, audio file, prompt, submit button
  sidebard -- cache of past reflections
@@ -18,10 +23,17 @@ backend -- express.js , mongoose, passport (normal & google authentication)
 database - mongodb
 
 USER - id, username, password (hashed)
-REFLECTION TEMPLATE - fileName (link to file name on server)
+REFLECTION TEMPLATE - fileName (link to file name on server), lyricTemplate (array of object -- lyrics : duration (ms)),        
+    note : storing lyrics as array of lyrics w/ duration so frontend can take this and display lyrics for right amount of time
+
+ADD VIDEO --> MUSIC VIDEOS !!!
+test and see if too messy --> if so tone it down and add more chill things
 
 server -- aws ?? idk yet (figure this out later)
+audio files - store somewhere else ? (not needed yet but maybe later -- "asset management software")
 
 deployment -- idk ?? maybe goes with server
+
+other tools - media.io (free vocal remover to generate background), soundful.com (ai music generator), pixbay.com (royalty free music downloader)
 
 things to try -- next.js (server side rendering --> faster + cooler)
