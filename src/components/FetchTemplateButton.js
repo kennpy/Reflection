@@ -3,7 +3,12 @@ const { PORT } = require("../backendConfig");
 const FETCH_TEMPLATE_PATH = `http://localhost:${PORT}/templates`;
 
 //TODO : Add setAudio prop to update audio component
-const FetchTemplateButton = ({ setCaption }) => {
+const FetchTemplateButton = ({
+  setCaption,
+  setAudioSource,
+  setPlayStatus,
+  setStartingTime,
+}) => {
   async function iterateCaptions(template, setCaption) {
     for (const item of template.lyrics) {
       await setCaptionForDuration(item.lyric, item.duration, setCaption);
@@ -17,6 +22,14 @@ const FetchTemplateButton = ({ setCaption }) => {
     });
   }
 
+  function getTotalCaptionTime(template) {
+    let totalDuration = 0;
+    for (let item of template.lyrics) {
+      totalDuration += item.duration;
+    }
+    return totalDuration;
+  }
+
   function handleClick() {
     const template = fetch(FETCH_TEMPLATE_PATH, {})
       .then((data) => data.json())
@@ -24,7 +37,15 @@ const FetchTemplateButton = ({ setCaption }) => {
         console.log(template);
         // update audio and show elements on screen
         //updateAudio(template.audioFile);
-        await iterateCaptions(template, setCaption);
+        const audioFilePrefix = "data:audio/mpeg;base64,";
+        const audioAsBinary = window.atob(template.audioFile);
+        setAudioSource(audioAsBinary);
+        setStartingTime(0);
+        setPlayStatus(True);
+
+        const totalCaptionTime = getTotalCaptionTime(template);
+        setTimeout(() => setPlayStatus(False), totalCaptionTime);
+        const totalSoundDuration = await iterateCaptions(template, setCaption);
         setCaption("Time to reflect ...");
       });
   }
