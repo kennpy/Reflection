@@ -2,7 +2,7 @@ function Audio() {
   return (
     <>
       <audio controls loop>
-        <source src="/mixkit-tech-house-vibes-130.mp3" type="audio/mp3" />
+        <source src="/DEFAULT.mp3" type="audio/mp3" />
       </audio>
     </>
   );
