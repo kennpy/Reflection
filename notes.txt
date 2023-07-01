@@ -36,4 +36,5 @@ deployment -- idk ?? maybe goes with server
 
 other tools - media.io (free vocal remover to generate background), soundful.com (ai music generator), pixbay.com (royalty free music downloader)
 
-things to try -- next.js (server side rendering --> faster + cooler)
+things to try -- next.js (server side rendering --> faster + cooler), add api endpoint to add their own music, (1) automate lyric generator + prompt creation using ai
+            and or (2) more "complex" endpoint that asks for audio-snippet, prompt, possible timestamp range to cut the audio myself 

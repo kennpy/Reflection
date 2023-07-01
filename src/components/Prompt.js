@@ -1,5 +1,5 @@
 function Prompt() {
-  return <></>;
+  return <>Test</>;
 }
 
 export default Prompt;

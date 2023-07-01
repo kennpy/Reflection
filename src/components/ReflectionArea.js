@@ -5,11 +5,11 @@ import ReflectionTextEntry from "./ReflectionTextEntry";
 function ReflectionArea() {
   // Get reflection info and pass it to components
   return (
-    <>
+    <div className="reflectionArea">
       <Prompt />
       <Audio />
       <ReflectionTextEntry />
-    </>
+    </div>
   );
 }
 

@@ -1,0 +1,19 @@
+database - mongodb
+
+USER - id, username, password (hashed)
+REFLECTION TEMPLATE - id, fileName (link to file name on server), lyricTemplate (array of object -- lyrics : duration (ms)), prompt (string), genre, mood, goal
+    note : storing lyrics as array of lyrics w/ duration so frontend can take this and display lyrics for right amount of time
+    note : when storing answers, use a seperate table where we duplicate the reflection template used. That way, if the original template changes, we still have the old 
+            template that was used to reflect (data replication, but in this case division between tables is a featuer not a bug)
+            ALSO so mutliple templates can reference the same mp3 if needed
+REFLECTION ANSWER -- answer (string, defaults to empty ), fileName, lyricTemplate
+
+LATER
+
+put things in there and use defaults
+
+when click, send answer and update reflection with response, store in global reflections answers store with user id to link
+
+tools --> ffmpeg to encode then re-encode client side
+
+

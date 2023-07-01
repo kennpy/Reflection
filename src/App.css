@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.reflectionArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+}

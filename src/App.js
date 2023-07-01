@@ -4,7 +4,8 @@ import SideBar from "./components/SideBar";
 
 function App() {
   return (
-    <div>
+    <div className="main">
+      <SideBar />
       <ReflectionArea />
     </div>
   );
