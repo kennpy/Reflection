@@ -9,7 +9,7 @@ const templateSchema = new Schema({
   lyrics: {
     type: [
       {
-        lyrics: String,
+        lyric: String,
         duration: Number, // NOTE : duration is in ms
       },
     ],

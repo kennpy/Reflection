@@ -5,7 +5,7 @@ connectDB();
 
 const DEFAULT_AUDIO_FILE_NAME = "DEFAULT";
 const DEFAULT_LYRICS = [
-  { lyric: "Some deep lyrics ...", duration: 2000 },
+  { lyric: "Some deep lyrics ...", duration: 4000 },
   { lyric: "More deep lyrics", duration: 1500 },
 ];
 
@@ -49,14 +49,19 @@ async function generateRandomTemplate() {
   const numTemplates = await Template.count().exec();
   const randomSkipCount = Math.floor(Math.random() * numTemplates);
   let randomTemplate = await Template.findOne().skip(randomSkipCount);
-  randomTemplate.audioFile = "";
   console.log("template in generate ", randomTemplate);
   return randomTemplate;
 }
 
-showAllTemplates();
-//makeDefaultTemplate();
+async function deleteAllTemplates() {
+  const count = await Template.deleteMany({});
+  console.log("Number of deleted templates ", count);
+}
+
+//deleteAllTemplates();
 //getNumberTemplates();
+//makeDefaultTemplate();
+showAllTemplates();
 
 module.exports = {
   generateRandomTemplate,

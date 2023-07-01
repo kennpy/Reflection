@@ -25,6 +25,7 @@ database - mongodb
 USER - id, username, password (hashed)
 REFLECTION TEMPLATE - fileName (link to file name on server), lyricTemplate (array of object -- lyrics : duration (ms)),        
     note : storing lyrics as array of lyrics w/ duration so frontend can take this and display lyrics for right amount of time
+    
 
 ADD VIDEO --> MUSIC VIDEOS !!!
 test and see if too messy --> if so tone it down and add more chill things
