@@ -16,6 +16,8 @@ app.use("/templates", templateRoutes);
 //app.use("/users", userRoutes);
 //app.use("/answers", answerRoutes);
 
+app.get("/", (req, res) => {});
+
 connectDB();
 
 app.listen(PORT, () => console.log("port runnin on ", PORT));

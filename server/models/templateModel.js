@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const templateSchema = new Schema({
   audioFileName: {
-    type: String,
+    type: [String],
     required: true,
   },
   lyrics: {
