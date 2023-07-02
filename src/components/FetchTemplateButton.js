@@ -6,8 +6,10 @@ const FETCH_TEMPLATE_PATH = `http://localhost:${PORT}/templates`;
 const FetchTemplateButton = ({
   setCaption,
   setAudioSource,
-  setPlayStatus,
+  setSoundStatus,
   setStartingTime,
+  makeNewAudio,
+  setTemplateId,
 }) => {
   async function iterateCaptions(template, setCaption) {
     for (const item of template.lyrics) {
@@ -37,15 +39,16 @@ const FetchTemplateButton = ({
         console.log(template);
         // update audio and show elements on screen
         //updateAudio(template.audioFile);
+        //const audioAsBinary = window.atob(template.audioFile);
         const audioFilePrefix = "data:audio/mpeg;base64,";
-        const audioAsBinary = window.atob(template.audioFile);
-        setAudioSource(audioAsBinary);
+        //setAudioSource(audioFilePrefix + template.audioFile);
+        setTemplateId(template._id);
         setStartingTime(0);
-        setPlayStatus(True);
-
+        setSoundStatus(true);
+        makeNewAudio(new Audio(audioFilePrefix + template.audioFile));
         const totalCaptionTime = getTotalCaptionTime(template);
-        setTimeout(() => setPlayStatus(False), totalCaptionTime);
-        const totalSoundDuration = await iterateCaptions(template, setCaption);
+        setTimeout(() => setSoundStatus(false), totalCaptionTime);
+        await iterateCaptions(template, setCaption);
         setCaption("Time to reflect ...");
       });
   }

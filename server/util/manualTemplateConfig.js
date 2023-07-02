@@ -1,7 +1,7 @@
 const Template = require("../models/templateModel");
-const connectDB = require("../db");
+const test = require("../db");
 
-connectDB();
+test.connectDB();
 
 const DEFAULT_AUDIO_FILE_NAME = "DEFAULT";
 const DEFAULT_LYRICS = [

@@ -7,7 +7,7 @@ REFLECTION TEMPLATE - id, fileName (link to file name on server), lyricTemplate 
     other : store file names as array with last element being newest. That way, if the file name changes and we want to update a template, anything using the old name      
             will still be linked to the same template, reducing replication and keepying our templates synced
 
-REFLECTION ANSWER -- answer (string, defaults to empty ), reflection template id
+REFLECTION ANSWER -- answer (string, defaults to empty ), reflection template id, user id
 
 LATER
 

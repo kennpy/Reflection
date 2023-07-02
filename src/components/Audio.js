@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function AudioElement({ source, playSound, startingTime }) {
+function AudioElement({ audio, source, playSound, startingTime }) {
   const [audioStatusLabel, setAudioStatusLabel] = useState("");
-  let audio = new Audio(source);
-  audio.currentTime = startingTime;
-  playSound ? play() : pause();
+  console.log("Rendering AudioElement", playSound);
+  useEffect(() => {
+    console.log("useEffect being called in AudioElement", playSound);
+    audio.currentTime = startingTime;
+    playSound ? playAudio(audio) : pauseAudio(audio);
+  }, [playSound]);
 
-  function play() {
+  function playAudio(audio) {
     audio.play();
     setAudioStatusLabel("Playing audio ...");
   }
 
-  function pause() {
+  function pauseAudio(audio) {
     audio.pause();
     setAudioStatusLabel("Pausing audio ...");
   }
