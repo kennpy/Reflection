@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 const { PORT } = require("../backendConfig");
 const FETCH_LOGIN_PATH = `http://localhost:${PORT}/users/login`;
 
-function Login() {
+function Login({ setUserId, setUserName }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginErrorExists, setLoginError] = useState(false);
@@ -36,8 +36,14 @@ function Login() {
         }),
       })
         .then((res) => res.json())
-        .then((loginDetails) => {
-          console.log("login response : ", loginDetails);
+        .then((login) => {
+          if (login.success) {
+            console.log("LOGIN SUCCESS", login);
+            setUserId(login.userId);
+            setUserName(login.username);
+          } else {
+            console.log("LOGIN FAILURE");
+          }
         });
       //else show invalid credentials
     }

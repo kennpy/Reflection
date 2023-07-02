@@ -60,7 +60,7 @@ async function deleteAllTemplates() {
 
 //deleteAllTemplates();
 //getNumberTemplates();
-//makeDefaultTemplate();
+makeDefaultTemplate();
 showAllTemplates();
 
 module.exports = {

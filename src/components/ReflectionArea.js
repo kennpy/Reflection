@@ -5,13 +5,14 @@ import AudioElement from "./Audio";
 import FetchTemplateButton from "./FetchTemplateButton";
 import ReflectionTextEntry from "./ReflectionTextEntry";
 import { AudioCaptions } from "./AudioCaptions";
+import UserContext from "../context/UserContext";
 
 const { PORT } = require("../backendConfig");
 const ANSWERS_API_PATH = `http://localhost:${PORT}/answers`;
 
 function noop() {}
 
-function ReflectionArea() {
+function ReflectionArea({ setUserAnswers }) {
   // Get reflection info and pass it to components
   const [caption, setCaption] = useState("");
   const [soundStatus, setSoundStatus] = useState(false);
@@ -19,6 +20,7 @@ function ReflectionArea() {
   const [audioSource, setAudioSource] = useState("/DEFAULT.mp3");
   const [audio, makeNewAudio] = useState({ play: noop, pause: noop });
   const [templateId, setTemplateId] = useState("");
+  const userId = React.useContext(UserContext);
 
   async function submitReflection(text) {
     await fetch(ANSWERS_API_PATH, {
@@ -29,11 +31,14 @@ function ReflectionArea() {
       body: JSON.stringify({
         text,
         templateId,
+        userId,
       }),
     })
       .then((res) => res.json())
-      .then((details) => {
-        console.log(details);
+      .then((everyUserAnswer) => {
+        console.log("answers we are updating sidebar with ");
+        console.log(everyUserAnswer);
+        setUserAnswers(everyUserAnswer);
       });
   }
 
