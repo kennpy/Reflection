@@ -7,14 +7,31 @@ const { generateRandomTemplate } = require("../util/manualTemplateConfig");
 const { getRandomAudioFile } = require("../util/soundUtils");
 
 // get a template
-router.get("/", getTemplate, sendTemplate);
+router.get("/", getRandomTemplate, sendTemplate);
+router.get("/:id", async (req, res, next) => {
+  const templateId = req.params.id;
+  console.log("/:id GET - ", req.params.id);
+  const template = await makeTemplateById(req, res, next, templateId);
+  addAudioAndSend(template, res);
+});
 
-async function getTemplate(req, res, next) {
+async function makeTemplateById(req, res, next, templateId) {
+  const template = await Template.findById(templateId);
+  console.log(template);
+  return template;
+}
+
+async function getRandomTemplate(req, res, next) {
   // get a template
   // NOTE : currently random, will add functionality for filtering later
+  //'const DEFAULT_AUDIO_FILE = getRandomAudioFile();
   let randomTemplate = await generateRandomTemplate();
-  const DEFAULT_AUDIO_FILE = getRandomAudioFile();
-  fs.readFile(DEFAULT_AUDIO_FILE, (err, audio) => {
+  addAudioAndSend(randomTemplate, res);
+}
+
+function addAudioAndSend(randomTemplate, res) {
+  const lastNameIdx = randomTemplate.audioFileName.length - 1;
+  fs.readFile(randomTemplate.audioFileName[lastNameIdx], (err, audio) => {
     if (err) {
       console.error("Error reading file:", err);
       return res.sendStatus(500);

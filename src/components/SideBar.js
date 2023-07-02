@@ -3,7 +3,7 @@ const { PORT } = require("../backendConfig");
 const FETCH_TEMPLATE_PATH = `http://localhost:${PORT}/templates`;
 
 function SideBar({
-  answers,
+  userAnswers,
   setCaption,
   setAudioSource,
   setSoundStatus,
@@ -34,6 +34,7 @@ function SideBar({
   async function startAudio(template) {
     const audioFilePrefix = "data:audio/mpeg;base64,";
     //setAudioSource(audioFilePrefix + template.audioFile);
+    console.log("starting audio from side bar click", setTemplateId);
     setTemplateId(template._id);
     setStartingTime(0);
     setSoundStatus(true);
@@ -45,30 +46,29 @@ function SideBar({
   }
 
   function handleClick(event) {
-    console.log(event.source);
-
-    const template = fetch(FETCH_TEMPLATE_PATH, {})
+    const list = event.target.parentElement;
+    const requestUrl = FETCH_TEMPLATE_PATH + "/" + list.dataset.templateId;
+    console.log("url for get request : ", requestUrl);
+    const template = fetch(requestUrl, {})
       .then((data) => data.json())
       .then((template) => {
         console.log(template);
-        // update audio and show elements on screen
-        //updateAudio(template.audioFile);
-        //const audioAsBinary = window.atob(template.audioFile);
         startAudio(template);
       });
-
-    const listItems =
-      answers &&
-      answers.map((answer) => (
-        <li key={answer._id}>
-          <p>{answer.text}</p>
-          <p>{answer.templateId}</p>
-          <p>{answer._id}</p>
-        </li>
-      ));
-    console.log("Rendering sidebar : ", listItems);
-    return <ul onClick={handleClick}>{listItems}</ul>;
   }
+
+  const listItems =
+    userAnswers &&
+    userAnswers.map((answer) => (
+      <li
+        key={answer._id}
+        data-template-id={answer.templateId}
+        data-answer-id={answer._id}
+      >
+        <p>{answer.text}</p>
+      </li>
+    ));
+  return <ul onClick={handleClick}>{listItems}</ul>;
 }
 
 export default SideBar;

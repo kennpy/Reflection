@@ -1,5 +1,6 @@
 const Template = require("../models/templateModel");
 const test = require("../db");
+const getRandomAudioFile = require("./soundUtils");
 
 test.connectDB();
 
@@ -11,14 +12,13 @@ const DEFAULT_LYRICS = [
 
 //person.friends.push(friend);
 
-const defaultTemplate = new Template({
-  audioFileName: [DEFAULT_AUDIO_FILE_NAME],
-  lyrics: DEFAULT_LYRICS,
-});
-
 function makeDefaultTemplate() {
   console.log("Saving default template");
-
+  const fileName = getRandomAudioFile();
+  const defaultTemplate = new Template({
+    audioFileName: [fileName],
+    lyrics: DEFAULT_LYRICS,
+  });
   defaultTemplate
     .save()
     .then((savedTemplate) => {

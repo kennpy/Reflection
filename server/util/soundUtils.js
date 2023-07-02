@@ -16,7 +16,4 @@ function getRandomAudioFile() {
 
 function fadeOutAudio(audioElement, fadeOutTime = DEFAULT_AUDIO_FADEOUT) {}
 
-module.exports = {
-  getRandomAudioFile,
-  fadeOutAudio,
-};
+module.exports = getRandomAudioFile;

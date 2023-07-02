@@ -1,10 +1,9 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SideBar from "./components/SideBar";
 import ReflectionArea from "./components/ReflectionArea";
 import UserContext from "./context/UserContext";
 
@@ -12,6 +11,10 @@ function App() {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [userAnswers, setUserAnswers] = useState([]);
+
+  useEffect(() => {
+    console.log("userAnswers was set to ", userAnswers);
+  }, [userAnswers]);
 
   return (
     <div class="main-page">
@@ -27,8 +30,10 @@ function App() {
       </Router>
               {" "} */}
       <UserContext.Provider value={userId}>
-        <SideBar answers={userAnswers} />
-        <ReflectionArea setUserAnswers={setUserAnswers} />
+        <ReflectionArea
+          setUserAnswers={setUserAnswers}
+          userAnswers={userAnswers}
+        />
         <Login setUserId={setUserId} setUserName={setUserName} />
         <Register />
       </UserContext.Provider>
