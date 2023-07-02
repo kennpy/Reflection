@@ -8,6 +8,7 @@ import FetchTemplateButton from "./FetchTemplateButton";
 import ReflectionTextEntry from "./ReflectionTextEntry";
 import { AudioCaptions } from "./AudioCaptions";
 import UserContext from "../context/UserContext";
+import FetchMyTemplateButton from "./FetchMyTemplateButton";
 
 const { PORT } = require("../backendConfig");
 const ANSWERS_API_PATH = `http://localhost:${PORT}/answers`;
@@ -62,6 +63,15 @@ function ReflectionArea({ setUserAnswers, userAnswers }) {
         setStartingTime={setStartingTime}
         makeNewAudio={makeNewAudio}
         setTemplateId={setTemplateId}
+      />
+      <FetchMyTemplateButton
+        setCaption={setCaption}
+        setAudioSource={setAudioSource}
+        setSoundStatus={setSoundStatus}
+        setStartingTime={setStartingTime}
+        makeNewAudio={makeNewAudio}
+        setTemplateId={setTemplateId}
+        userId={userId}
       />
       <Prompt />
       <AudioElement

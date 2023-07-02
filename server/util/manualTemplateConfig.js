@@ -60,8 +60,8 @@ async function deleteAllTemplates() {
 
 //deleteAllTemplates();
 //getNumberTemplates();
-makeDefaultTemplate();
-showAllTemplates();
+//makeDefaultTemplate();
+//showAllTemplates();
 
 module.exports = {
   generateRandomTemplate,

@@ -1,3 +1,4 @@
+const { FILE } = require("dns");
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
@@ -8,7 +9,7 @@ const { generateRandomTemplate } = require("../util/manualTemplateConfig");
 const { getRandomAudioFile } = require("../util/soundUtils");
 
 // get a template
-router.get("/", getRandomTemplate, sendTemplate);
+router.get("/", getUserTemplate, getRandomTemplate, sendTemplate);
 
 router.get("/:id", async (req, res, next) => {
   const templateId = req.params.id;
@@ -22,11 +23,55 @@ const files = multer().any();
 
 router.post("/", files, (req, res, next) => {
   console.log("POST /templates", req.body, req.files);
-  res.json({});
+  const lyrics = JSON.parse(req.body.lyrics);
+  const userId = req.body.userId;
+  const file = req.files[0];
+
+  console.log(lyrics);
+  console.log(userId);
+  const template = new Template({
+    audioFileName: "./server/sounds/" + file.originalname,
+    lyrics: lyrics,
+    userId: userId,
+  });
+
+  const response = template.save();
+
+  fs.writeFile(
+    `./server/sounds/${file.originalname}`,
+    file.buffer,
+    { flag: "w" },
+    (err) => {
+      console.log(err);
+    }
+  );
+  res.json(response);
 });
+
+async function getUserTemplate(req, res, next) {
+  console.log("req.query.userId", req.query.userId);
+  if (req.query.userId != undefined) {
+    //  let template = await Template.findOne({ userId: req.query.userId });
+    const numTemplates = await Template.count({
+      userId: req.query.userId,
+    }).exec();
+    const randomSkipCount = Math.floor(Math.random() * numTemplates);
+    let templates = await Template.find({ userId: req.query.userId });
+    const template = templates[randomSkipCount];
+    // .skip(
+    //   randomSkipCount
+    // );
+    console.log(template, randomSkipCount);
+    addAudioAndSend(template, res);
+  } else {
+    console.log("getting random template instead of user template");
+    next();
+  }
+}
 
 async function makeTemplateById(req, res, next, templateId) {
   const template = await Template.findById(templateId);
+
   console.log(template);
   return template;
 }

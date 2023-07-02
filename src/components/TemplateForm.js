@@ -2,20 +2,16 @@ import React, { useEffect, useState } from "react";
 const { PORT } = require("../backendConfig");
 const FETCH_TEMPLATE_PATH = `http://localhost:${PORT}/templates`;
 
-function TemplateForm() {
+function TemplateForm({ userId }) {
   const [mp3, setMp3] = useState();
   const [lyrics, setLyrics] = useState([]);
   const [singleLyric, setSingleLyric] = useState("");
   const [lyricDuration, setLyricDuration] = useState([]);
-  const [fileName, setFileName] = useState("");
 
   function checkFormIsFilled() {
     console.log(mp3);
     return (
-      lyricDuration !== "" &&
-      singleLyric !== "" &&
-      lyricDuration !== "" &&
-      fileName !== ""
+      lyricDuration !== "" && singleLyric !== ""
       //      mp3 !== ""
     );
   }
@@ -66,6 +62,7 @@ function TemplateForm() {
       const formData = new FormData();
       formData.append("mp3", audioFile);
       formData.append("lyrics", JSON.stringify(lyrics));
+      formData.append("userId", userId);
       fetch(FETCH_TEMPLATE_PATH, {
         method: "POST",
         body: formData,
@@ -82,20 +79,6 @@ function TemplateForm() {
     <div className="login-page">
       <h2>MAKE NEW FORM</h2>
       <form>
-        <div>
-          <label htmlFor="filename">File Name</label>
-          <input
-            value={fileName}
-            placeholder="File Name"
-            onChange={(e) => setFileName(e.target.value)}
-            id="filename"
-            name="filename"
-            type="text"
-            autoComplete="off"
-            required
-          />
-        </div>
-
         <div>
           <label htmlFor="mp3">MP3</label>
           <input
@@ -129,7 +112,7 @@ function TemplateForm() {
             onChange={(e) => setLyricDuration(e.target.value)}
             id="lyricDuration"
             name="lyricDuration"
-            type="text"
+            type="number"
             autoComplete="off"
             required
           />

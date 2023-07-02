@@ -68,7 +68,7 @@ const FetchTemplateButton = ({
         makeNewAudio
         setTemplateId
       />
-      <button onClick={handleClick}>Fetch Template</button>
+      <button onClick={handleClick}>Fetch Random Template</button>
     </>
   );
 };
