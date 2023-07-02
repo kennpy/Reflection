@@ -5,7 +5,13 @@ const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema({
-  username: { type: String, unique: true, required: true },
+  email: {
+    type: String,
+    require: true,
+    index: true,
+    unique: true,
+    sparse: true,
+  },
 });
 userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("User", userSchema);

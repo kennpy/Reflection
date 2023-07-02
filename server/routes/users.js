@@ -14,7 +14,7 @@ router.post("/register", register);
 router.post("/login", login);
 
 function register(req, res, next) {
-  let Users = new User({ email: req.body.email, username: req.body.username });
+  let Users = new User({ username: req.body.username });
   User.register(Users, req.body.password, function (err, user) {
     if (err) {
       res.json({
@@ -58,6 +58,8 @@ function login(req, res, next) {
                   success: true,
                   message: "Authentication successful",
                   token: token,
+                  userId: user._id,
+                  username: user.username,
                 });
               }
             });

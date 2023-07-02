@@ -25,7 +25,7 @@ function Login() {
     const formIsFilled = checkFormIsFilled();
     if (formIsFilled) {
       // validate sign in info on backend and sign them in
-      const response = await fetch(FETCH_LOGIN_PATH, {
+      fetch(FETCH_LOGIN_PATH, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,8 +34,11 @@ function Login() {
           username,
           password,
         }),
-      });
-      console.log("login response : ", response.json());
+      })
+        .then((res) => res.json())
+        .then((loginDetails) => {
+          console.log("login response : ", loginDetails);
+        });
       //else show invalid credentials
     }
   }
