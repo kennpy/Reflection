@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import HomePage from "./components/HomePage";
+import TemplateForm from "./components/TemplateForm";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -34,6 +34,7 @@ function App() {
           setUserAnswers={setUserAnswers}
           userAnswers={userAnswers}
         />
+        <TemplateForm userId={userId} />
         <Login setUserId={setUserId} setUserName={setUserName} />
         <Register />
       </UserContext.Provider>

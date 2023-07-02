@@ -1,18 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-
+let multer = require("multer");
+let forms = multer();
 const Template = require("../models/templateModel.js");
 const { generateRandomTemplate } = require("../util/manualTemplateConfig");
 const { getRandomAudioFile } = require("../util/soundUtils");
 
 // get a template
 router.get("/", getRandomTemplate, sendTemplate);
+
 router.get("/:id", async (req, res, next) => {
   const templateId = req.params.id;
   console.log("/:id GET - ", req.params.id);
   const template = await makeTemplateById(req, res, next, templateId);
   addAudioAndSend(template, res);
+});
+
+// const files = multer().fields([{ mp3: "mp3" }, { lyrics: "lyrics" }]);
+const files = multer().any();
+
+router.post("/", files, (req, res, next) => {
+  console.log("POST /templates", req.body, req.files);
+  res.json({});
 });
 
 async function makeTemplateById(req, res, next, templateId) {

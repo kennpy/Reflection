@@ -10,6 +10,8 @@ const answerRoutes = require("./routes/answers");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/userModel");
+const multer = require("multer");
+const forms = multer();
 (async () => {
   const PORT = 3001;
   let DB_CONNECTION;
@@ -22,6 +24,7 @@ const User = require("./models/userModel");
   app.use(cors());
   app.use(express.urlencoded({ extended: true }));
   app.use(bodyParser.json());
+  //app.use(forms.array());
 
   // use static authenticate method of model in LocalStrategy
   //   passport.use(new LocalStrategy(User.authenticate()));

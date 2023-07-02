@@ -15,6 +15,7 @@ const templateSchema = new Schema({
     ],
     required: true,
   },
+  userId: String,
 });
 
 const Template = mongoose.model("Template", templateSchema);
