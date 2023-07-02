@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 const { PORT } = require("../backendConfig");
-const FETCH_LOGIN_PATH = `http://localhost:${PORT}/users/login`;
+const FETCH_REGISTER_PATH = `http://localhost:${PORT}/users/register`;
 
-function Login() {
+function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginErrorExists, setLoginError] = useState(false);
@@ -25,7 +25,7 @@ function Login() {
     const formIsFilled = checkFormIsFilled();
     if (formIsFilled) {
       // validate sign in info on backend and sign them in
-      const response = await fetch(FETCH_LOGIN_PATH, {
+      const response = await fetch(FETCH_REGISTER_PATH, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,8 +41,8 @@ function Login() {
   }
 
   return (
-    <div className="login-page">
-      <h2>LOGIN</h2>
+    <div className="register-page">
+      <h2>REGISTER</h2>
       <form>
         <div>
           <label for="username">Username</label>
@@ -72,7 +72,7 @@ function Login() {
         </div>
         <div>
           <button type="submit" onClick={handleLogin}>
-            Sign in
+            Register
           </button>
         </div>
       </form>
@@ -80,4 +80,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
